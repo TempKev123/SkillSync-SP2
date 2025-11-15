@@ -23,19 +23,33 @@ export default function LoginComponent() {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gray-100'>
-      <div>
-        <h1>SkillSync</h1>
-        <h2 className='text-sm font-bold text-center mb-6'>Welcome to SkillSync</h2>
-        
-        <button 
+    <div className='min-h-screen flex flex-col items-center justify-center bg-indigo-500'>
+      {/* Logo/Title Section */}
+      <div className='text-center mb-8'>
+        <h1 className='text-4xl font-Inter text-white mb-4'>SkillSync</h1>
+        <p className='text-blue-200 text-[16px]'>Enhance your skills, sync your success</p>
+      </div>
+
+      {/* Login Card */}
+      <div className='bg-white rounded-2xl shadow-2xl py-6 px-6 w-full max-w-md'>
+        <h2 className='text-[16px] font-semibold text-indigo-500 text-center mb-6 pb-4 border-b-2 border-indigo-500'>
+          Sign In / Sign Up
+        </h2>
+
+        <button
           onClick={handleMicrosoftSignIn}
-          className='w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50'
+          disabled={loading}
+          className='w-full bg-white border-2 border-gray-300 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-50 disabled:opacity-50 flex items-center justify-center gap-3 transition-all'
         >
-          {loading ? 'Signing in...' : 'Sign in with Microsoft'}
+          <img
+            src="https://purepng.com/public/uploads/large/purepng.com-microsoft-logo-iconlogobrand-logoiconslogos-251519939091wmudn.png"
+            alt="Microsoft logo"
+            className='w-5 h-5'
+          />
+          <span className='text-[16px] text-black'>
+            {loading ? 'Signing in...' : 'Login with Microsoft'}
+          </span>
         </button>
-        
-        {error && <p className='text-red-500 text-sm mt-4 text-center'>{error}</p>}
       </div>
     </div>
   );
