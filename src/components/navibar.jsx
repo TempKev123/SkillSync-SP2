@@ -16,7 +16,7 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg">
+    <nav className="bg-gradient-to-r from-indigo-500 to-indigo-800 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -30,8 +30,8 @@ export default function NavBar() {
               to="/home"
               className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 location.pathname === "/home"
-                  ? "bg-blue-900 text-white"
-                  : "text-blue-100 hover:bg-blue-700 hover:text-white"
+                  ? "bg-indigo-900 text-white"
+                  : "text-blue-100 hover:bg-indigo-700 hover:text-white"
               }`}
             >
               Home
@@ -40,8 +40,8 @@ export default function NavBar() {
               to="/profile"
               className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 location.pathname === "/profile"
-                  ? "bg-blue-900 text-white"
-                  : "text-blue-100 hover:bg-blue-700 hover:text-white"
+                  ? "bg-indigo-900 text-white"
+                  : "text-blue-100 hover:bg-indigo-700 hover:text-white"
               }`}
             >
               Profile
