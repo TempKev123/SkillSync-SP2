@@ -1,9 +1,11 @@
-import ProfileComponents from '../components/profileComponents.jsx';
-
+import ProfileComponents from '../components/profileComponents';
 export default function ProfilePage() {
   return (
     <div>
-      <ProfileComponents></ProfileComponents>
+      <ProfileComponents />
     </div>
   );
 }
+
+
+
