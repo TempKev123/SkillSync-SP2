@@ -12,6 +12,14 @@ export default function HomeComponents() {
           <h3 className="text-3xl font-bold text-gray-800 mb-10">  Alice Johnson</h3>
         </div>
       </div>
+      {/* Search Bar - Centered at the top */}
+      <div className="flex justify-center mt-8 mb-12">
+        <input
+          type="text"
+          placeholder="Search profiles, skills, or topics..."
+          className="w-full max-w-md px-5 py-3 rounded-xl shadow-lg border border-white/30 bg-white/80 backdrop-blur-sm text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#887cd0] transition"
+        />
+      </div>
       {/* News Card - Top Right */}
       <div className="absolute top-8 right-8 z-10 w-100">
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-6 border border-white/20">
