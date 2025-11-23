@@ -7,6 +7,7 @@ import ErrorPage from "../pages/errorpage";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { useAuth } from "../context/AuthContext";
 
+
 // Wrapper component to redirect authenticated users from login page
 function LoginRoute() {
   const { user, loading } = useAuth();
