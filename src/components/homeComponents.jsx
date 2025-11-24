@@ -67,19 +67,9 @@ export default function HomeComponents() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Header Section */}
-        <div className="flex justify-end mb-6">
-          <button
-            onClick={() => setShowPostModal(true)}
-            className="bg-[#887cd0] hover:bg-[#a396e0] text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-sm"
-          >
-            + Post Project
-          </button>
-        </div>
-
-        {/* Search Bar */}
-        <div className="mb-6">
-          <div className="relative">
+        {/* Search Bar and Create Button */}
+        <div className="flex items-center gap-4 mb-6">
+          <div className="flex-1 relative">
             <input
               type="text"
               value={searchQuery}
@@ -101,6 +91,12 @@ export default function HomeComponents() {
               />
             </svg>
           </div>
+          <button
+            onClick={() => setShowPostModal(true)}
+            className="bg-[#887cd0] hover:bg-[#a396e0] text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-sm whitespace-nowrap"
+          >
+            Post
+          </button>
         </div>
 
         {/* Tabs */}
