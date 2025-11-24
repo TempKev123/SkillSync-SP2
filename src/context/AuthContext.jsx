@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signInWithPopup, signOut, OAuthProvider } from 'firebase/auth';
 import { auth, microsoftProvider } from '../firebaseconfig';
+import { getMicrosoftProfilePhoto } from '../utils/microsoftGraph';
 
 const AuthContext = createContext({});
 
@@ -15,12 +16,24 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [profilePhotoURL, setProfilePhotoURL] = useState(null);
 
   useEffect(() => {
     // Listen for auth state changes
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+
+      // Load profile photo from localStorage if user is signed in
+      if (currentUser) {
+        const storedPhotoURL = localStorage.getItem('msProfilePhotoURL');
+        if (storedPhotoURL) {
+          setProfilePhotoURL(storedPhotoURL);
+        }
+      } else {
+        // Clear profile photo if user is signed out
+        setProfilePhotoURL(null);
+      }
     });
 
     // Cleanup subscription on unmount
@@ -31,6 +44,21 @@ export const AuthProvider = ({ children }) => {
   const signInWithMicrosoft = async () => {
     try {
       const result = await signInWithPopup(auth, microsoftProvider);
+
+      // Get the Microsoft access token from the credential
+      const credential = OAuthProvider.credentialFromResult(result);
+      const accessToken = credential?.accessToken;
+
+      // Fetch the profile photo from Microsoft Graph API
+      if (accessToken) {
+        const photoURL = await getMicrosoftProfilePhoto(accessToken);
+        if (photoURL) {
+          setProfilePhotoURL(photoURL);
+          // Store the photo URL in localStorage for persistence
+          localStorage.setItem('msProfilePhotoURL', photoURL);
+        }
+      }
+
       return result.user;
     } catch (error) {
       console.error('Error signing in with Microsoft:', error);
@@ -42,6 +70,9 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await signOut(auth);
+      // Clear profile photo from localStorage
+      localStorage.removeItem('msProfilePhotoURL');
+      setProfilePhotoURL(null);
     } catch (error) {
       console.error('Error signing out:', error);
       throw error;
@@ -51,6 +82,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     user,
     loading,
+    profilePhotoURL,
     signInWithMicrosoft,
     logout,
   };
