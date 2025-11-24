@@ -67,19 +67,9 @@ export default function HomeComponents() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Header Section */}
-        <div className="flex justify-end mb-6">
-          <button
-            onClick={() => setShowPostModal(true)}
-            className="bg-[#887cd0] hover:bg-[#a396e0] text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-sm"
-          >
-            + Post Project
-          </button>
-        </div>
-
-        {/* Search Bar */}
-        <div className="mb-6">
-          <div className="relative">
+        {/* Search Bar and Create Button */}
+        <div className="flex items-center gap-4 mb-6">
+          <div className="flex-1 relative">
             <input
               type="text"
               value={searchQuery}
@@ -87,20 +77,13 @@ export default function HomeComponents() {
               placeholder="Search projects, skills, or collaborators..."
               className="w-full px-5 py-3 pr-12 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#887cd0] focus:border-transparent shadow-sm"
             />
-            <svg
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
           </div>
+          <button
+            onClick={() => setShowPostModal(true)}
+            className="bg-[#887cd0] hover:bg-[#a396e0] text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-sm whitespace-nowrap"
+          >
+            Post
+          </button>
         </div>
 
         {/* Tabs */}
