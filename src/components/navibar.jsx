@@ -29,7 +29,7 @@ export default function NavBar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/home" className="flex-shrink-0">
-            <span className="text-xl font-bold text-white">SkillSync</span>
+            <span className="text-2xl font-bold text-white">SkillSync</span>
           </Link>
 
           {/* Navigation Links & User Section */}
@@ -85,6 +85,7 @@ export default function NavBar() {
           </div>
         </div>
       </div>
+      <div className="h-1 bg-blue-300 w-full"></div>
     </nav>
   );
 }

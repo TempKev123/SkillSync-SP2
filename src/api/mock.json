@@ -1,0 +1,57 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "AI-Powered Learning Platform",
+      "description": "Building an intelligent tutoring system using machine learning to provide personalized education.",
+      "author": "Sarah Chen",
+      "skills": ["Python", "TensorFlow", "React"],
+      "lookingFor": ["Backend Developer", "UI/UX Designer"],
+      "posted": "2 days ago"
+    },
+    {
+      "id": 2,
+      "title": "Mobile Health Tracker",
+      "description": "Cross-platform mobile app for tracking fitness goals and nutrition with community features.",
+      "author": "Michael Rodriguez",
+      "skills": ["React Native", "Node.js", "MongoDB"],
+      "lookingFor": ["Mobile Developer", "Data Scientist"],
+      "posted": "5 days ago"
+    },
+    {
+      "id": 3,
+      "title": "Blockchain Voting System",
+      "description": "Secure, transparent voting platform using blockchain technology for student organizations.",
+      "author": "Emily Watson",
+      "skills": ["Solidity", "Web3.js", "Next.js"],
+      "lookingFor": ["Blockchain Developer", "Security Expert"],
+      "posted": "1 week ago"
+    }
+  ],
+  "collaborators": [
+    {
+      "id": 1,
+      "name": "Alex Johnson",
+      "initials": "AJ",
+      "skills": ["JavaScript", "Python", "UI/UX"],
+      "matchScore": 95,
+      "interests": ["AI", "Web Development"]
+    },
+    {
+      "id": 2,
+      "name": "Jordan Lee",
+      "initials": "JL",
+      "skills": ["Java", "Spring Boot", "Docker"],
+      "matchScore": 88,
+      "interests": ["Cloud Computing", "DevOps"]
+    },
+    {
+      "id": 3,
+      "name": "Sam Taylor",
+      "initials": "ST",
+      "skills": ["React", "Node.js", "GraphQL"],
+      "matchScore": 82,
+      "interests": ["Full Stack", "Startups"]
+    }
+  ]
+}
