@@ -65,7 +65,7 @@ export default function HomeComponents() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-purple-300">
+    <div className="min-h-screen bg-linear-to-r ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Search Bar and Create Button */}
         <div className="flex items-center gap-4 mb-6">
@@ -180,7 +180,7 @@ export default function HomeComponents() {
             className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100"
                 >
             <div className="flex flex-col items-center text-center">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#887cd0] to-[#a396e0] flex items-center justify-center text-white text-2xl font-bold mb-4">
+              <div className="w-20 h-20 rounded-full bg-linear-to-r from-[#887cd0] to-[#a396e0] flex items-center justify-center text-white text-2xl font-bold mb-4">
                 {collaborator.initials}
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-1">{collaborator.name}</h3>
