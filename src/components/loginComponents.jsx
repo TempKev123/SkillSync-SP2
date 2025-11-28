@@ -29,8 +29,6 @@ export default function LoginComponent() {
         <div className="w-full text-center mb-6 bg-purple/20 backdrop-blur-md p-6 rounded-2xl shadow-xl">
           <h1 className="text-7xl font-Inter text-black mb-4">SkillSync</h1>
           <p className="text-black text-[32px]">Enhance your Skills, Sync your success</p>
-        <div className="h-1 bg-[#887cd0] w-full"></div>
-        
         </div>
 
 

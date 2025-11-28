@@ -65,7 +65,7 @@ export default function HomeComponents() {
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-r from-white to-purple-300">
+    <div className="min-h-screen bg-linear-to-r ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Search Bar and Create Button */}
         <div className="flex items-center gap-4 mb-6">
