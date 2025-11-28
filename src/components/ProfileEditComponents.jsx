@@ -120,7 +120,7 @@ const ProfileEditComponents = () => {
             </button>
             <button
               onClick={handleSaveProfile}
-              className="flex-1 sm:flex-none bg-[#3b5998] hover:bg-[#2d4373] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-medium transition-colors text-sm sm:text-base shadow-md"
+              className="flex-1 sm:flex-none bg-[#887cd0] hover:bg-[#a396e0] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-medium transition-colors text-sm sm:text-base shadow-md"
             >
               Save Changes
             </button>

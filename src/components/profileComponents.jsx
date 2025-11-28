@@ -61,7 +61,7 @@ const ProfileComponents = () => {
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">My Profile</h1>
           <button
             onClick={handleEditProfile}
-            className="bg-[#3b5998] hover:bg-[#2d4373] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-medium transition-colors text-sm sm:text-base w-full sm:w-auto"
+            className="bg-[#887cd0] hover:bg-[#a396e0] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-medium transition-colors text-sm sm:text-base w-full sm:w-auto"
           >
             Edit Profile
           </button>
