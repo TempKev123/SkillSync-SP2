@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [profilePhotoURL, setProfilePhotoURL] = useState(null);
+  const [photoLoading, setPhotoLoading] = useState(false);
 
   useEffect(() => {
     // Listen for auth state changes
@@ -51,17 +52,20 @@ export const AuthProvider = ({ children }) => {
 
       // Fetch the profile photo from Microsoft Graph API
       if (accessToken) {
+        setPhotoLoading(true);
         const photoURL = await getMicrosoftProfilePhoto(accessToken);
         if (photoURL) {
           setProfilePhotoURL(photoURL);
           // Store the photo URL in localStorage for persistence
           localStorage.setItem('msProfilePhotoURL', photoURL);
         }
+        setPhotoLoading(false);
       }
 
       return result.user;
     } catch (error) {
       console.error('Error signing in with Microsoft:', error);
+      setPhotoLoading(false);
       throw error;
     }
   };
@@ -83,6 +87,7 @@ export const AuthProvider = ({ children }) => {
     user,
     loading,
     profilePhotoURL,
+    photoLoading,
     signInWithMicrosoft,
     logout,
   };
