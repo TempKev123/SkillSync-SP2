@@ -53,7 +53,11 @@ const ProfileComponents = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
+    <div className="min-h-screen bg-gray-50 py-4 sm:py-8"
+    style={{
+        background: "linear-gradient(180deg,rgb(255, 255, 255) 50%, #887cd0 100%)"
+      }}
+    >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 
         {/* Header */}
@@ -93,7 +97,7 @@ const ProfileComponents = () => {
 
             {/* Profile Info */}
             <div className="flex-1 text-center md:text-left">
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">{profileData.name}</h2>
+              <h2 className="text-5xl font-bold text-gray-900 mb-8">{profileData.name}</h2>
               <p className="text-lg text-gray-600 mb-4">{profileData.bio}</p>
             </div>
           </div>
@@ -128,7 +132,7 @@ const ProfileComponents = () => {
             </div>
 
             {/* Featured Projects */}
-            <div className="bg-white rounded-xl shadow-md p-6">
+            <div className="w-304 bg-white rounded-xl shadow-md p-6">
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <span className="w-1 h-6 bg-linear-to-b from-[#887cd0] to-[#a396e0] rounded-full"></span>
                 Featured Projects
@@ -149,7 +153,7 @@ const ProfileComponents = () => {
                         {project.status}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600 mb-3">{project.description}</p>
+                    <p className="text-sm text-gray-600 mb-3 italic">{project.description}</p>
                     <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag, tagIndex) => (
                         <span

@@ -65,9 +65,14 @@ export default function HomeComponents() {
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-r ">
+    <div
+      className="min-h-screen"
+      style={{
+        background: "linear-gradient(180deg,rgb(255, 255, 255) 50%, #887cd0 100%)"
+      }}
+    >
+      {/* Search Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Search Bar and Create Button */}
         <div className="flex items-center gap-4 mb-6">
           <div className="flex-1 relative">
             <input
@@ -85,90 +90,97 @@ export default function HomeComponents() {
             Post
           </button>
         </div>
+      </div>
 
-        {/* Tabs */}
-        <div className="mb-6 border-b border-gray-200">
-          <div className="flex gap-6">
-            <button
-              onClick={() => setActiveTab('projects')}
-              className={`pb-3 px-1 font-medium transition-colors relative ${
-                activeTab === 'projects'
-                  ? 'text-[#887cd0]'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              Projects
-              {activeTab === 'projects' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#887cd0]"></div>
-              )}
-            </button>
-            <button
-              onClick={() => setActiveTab('collaborators')}
-              className={`pb-3 px-1 font-medium transition-colors relative ${
-                activeTab === 'collaborators'
-                  ? 'text-[#887cd0]'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              Find Collaborators
-              {activeTab === 'collaborators' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#887cd0]"></div>
-              )}
-            </button>
+      {/* 🔥 MAIN LAYOUT — LEFT CONTENT + RIGHT NEWS */}
+      <div className="flex gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* LEFT SIDE CONTENT */}
+        <div className="flex-1 items-start ml-6">
+
+          {/* Tabs */}
+          <div className="mb-6 border-b border-gray-200">
+            <div className="flex gap-6">
+              <button
+                onClick={() => setActiveTab('projects')}
+                className={`pb-3 px-1 font-medium transition-colors relative ${
+                  activeTab === 'projects'
+                    ? 'text-[#887cd0]'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Projects
+                {activeTab === 'projects' && (
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#887cd0]"></div>
+                )}
+              </button>
+              <button
+                onClick={() => setActiveTab('collaborators')}
+                className={`pb-3 px-1 font-medium transition-colors relative ${
+                  activeTab === 'collaborators'
+                    ? 'text-[#887cd0]'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Find Collaborators
+                {activeTab === 'collaborators' && (
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#887cd0]"></div>
+                )}
+              </button>
+            </div>
           </div>
-        </div>
 
-        
-        {/* Content Area */}
+          {/* Content Area */}
           {activeTab === 'projects' ? (
             <div className="grid grid-cols-1 gap-6 drop-shadow-lg">
               {projects.map((project) => (
                 <div
-            key={project.id}
-            className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100"
+                  key={project.id}
+                  className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100"
                 >
-            <div className="flex justify-between items-start mb-3">
-              <h3 className="text-xl font-bold text-gray-900">{project.title}</h3>
-              <span className="text-sm text-gray-500">{project.posted}</span>
-            </div>
-            <p className="text-gray-600 mb-4 italic">{project.description}</p>
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-xl font-bold text-gray-900">{project.title}</h3>
+                    <span className="text-sm text-gray-500">{project.posted}</span>
+                  </div>
 
-            <div className="mb-4">
-              <p className="text-sm font-medium text-gray-700 mb-2">Tech Stack:</p>
-              <div className="flex flex-wrap gap-2">
-                {project.skills.map((skill, idx) => (
-                  <span
-              key={idx}
-              className="px-3 py-1 bg-purple-50 text-[#887cd0] rounded-md text-sm font-medium"
-                  >
-              {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
+                  <p className="text-gray-600 mb-4 italic">{project.description}</p>
 
-            <div className="mb-4">
-              <p className="text-sm font-medium text-gray-700 mb-2">Looking for:</p>
-              <div className="flex flex-wrap gap-2">
-                {project.lookingFor.map((role, idx) => (
-                  <span
-              key={idx}
-              className="px-3 py-1 bg-green-50 text-green-700 rounded-md text-sm font-medium"
-                  >
-              {role}
-                  </span>
-                ))}
-              </div>
-            </div>
+                  <div className="mb-4">
+                    <p className="text-sm font-medium text-gray-700 mb-2">Tech Stack:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.skills.map((skill, idx) => (
+                        <span
+                          key={idx}
+                          className="px-3 py-1 bg-purple-50 text-[#887cd0] rounded-md text-sm font-medium"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-              <span className="text-sm text-gray-600 ">
-                Posted by <span className="font-bold">{project.author}</span>
-                </span>
-              <button className="bg-[#887cd0] hover:bg-[#a396e0] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                Apply to Join
-              </button>
-            </div>
+                  <div className="mb-4">
+                    <p className="text-sm font-medium text-gray-700 mb-2">Looking for:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.lookingFor.map((role, idx) => (
+                        <span
+                          key={idx}
+                          className="px-3 py-1 bg-green-50 text-green-700 rounded-md text-sm font-medium"
+                        >
+                          {role}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                    <span className="text-sm text-gray-600">
+                      Posted by <span className="font-bold">{project.author}</span>
+                    </span>
+                    <button className="bg-[#887cd0] hover:bg-[#a396e0] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                      Apply to Join
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -176,57 +188,72 @@ export default function HomeComponents() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 drop-shadow-lg">
               {collaborators.map((collaborator) => (
                 <div
-            key={collaborator.id}
-            className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100"
+                  key={collaborator.id}
+                  className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100"
                 >
-            <div className="flex flex-col items-center text-center">
-              <div className="w-20 h-20 rounded-full bg-linear-to-r from-[#887cd0] to-[#a396e0] flex items-center justify-center text-white text-2xl font-bold mb-4">
-                {collaborator.initials}
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">{collaborator.name}</h3>
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-sm font-medium text-[#887cd0]">{collaborator.matchScore}% Match</span>
-              </div>
+                  <div className="flex flex-col items-center text-center">
+                    <div className="w-20 h-20 rounded-full bg-linear-to-r from-[#887cd0] to-[#a396e0] flex items-center justify-center text-white text-2xl font-bold mb-4">
+                      {collaborator.initials}
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-1">{collaborator.name}</h3>
 
-              <div className="w-full mb-4">
-                <p className="text-sm font-medium text-gray-700 mb-2">Skills:</p>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {collaborator.skills.map((skill, idx) => (
-              <span
-                key={idx}
-                className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs"
-              >
-                {skill}
-              </span>
-                  ))}
-                </div>
-              </div>
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-sm font-medium text-[#887cd0]">{collaborator.matchScore}% Match</span>
+                    </div>
 
-              <div className="w-full mb-4">
-                <p className="text-sm font-medium text-gray-700 mb-2">Interests:</p>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {collaborator.interests.map((interest, idx) => (
-              <span
-                key={idx}
-                className="px-2 py-1 bg-purple-50 text-[#887cd0] rounded text-xs"
-              >
-                {interest}
-              </span>
-                  ))}
-                </div>
-              </div>
+                    <div className="w-full mb-4">
+                      <p className="text-sm font-medium text-gray-700 mb-2">Skills:</p>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {collaborator.skills.map((skill, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
 
-              <button className="w-full bg-[#887cd0] hover:bg-[#a396e0] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                Connect
-              </button>
-            </div>
+                    <div className="w-full mb-4">
+                      <p className="text-sm font-medium text-gray-700 mb-2">Interests:</p>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {collaborator.interests.map((interest, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2 py-1 bg-purple-50 text-[#887cd0] rounded text-xs"
+                          >
+                            {interest}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <button className="w-full bg-[#887cd0] hover:bg-[#a396e0] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                      Connect
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
           )}
-              </div>
+        </div>
 
-              {/* Post Project Modal */}
+        {/* RIGHT SIDE — NEWS PANEL */}
+        <div className="w-72 mt-6 sticky top-6 h-fit">
+          <div className="bg-white border border-gray-200 shadow-sm rounded-xl p-4">
+            <h3 className="text-xl font-bold text-gray-800 mb-4">NEWS</h3>
+
+            <ul className="space-y-3 text-sm">
+              <li className="border-b pb-2">🚀 New collaboration features added!</li>
+              <li className="border-b pb-2">🔧 Platform maintenance this weekend.</li>
+              <li>⭐ Featured creator of the month announced!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Post Modal */}
       {showPostModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
@@ -297,10 +324,7 @@ export default function HomeComponents() {
                   Cancel
                 </button>
                 <button
-                  onClick={() => {
-                    // Handle post submission
-                    setShowPostModal(false);
-                  }}
+                  onClick={() => setShowPostModal(false)}
                   className="flex-1 px-4 py-2 bg-[#887cd0] hover:bg-[#a396e0] text-white rounded-lg transition-colors"
                 >
                   Post Project

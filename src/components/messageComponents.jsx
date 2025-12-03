@@ -94,7 +94,11 @@ export default function MessageComponents() {
   };
 
   return (
-    <div className="h-[calc(100vh-4rem)] bg-gray-50">
+    <div className="h-[calc(100vh-4rem)] bg-gray-50"
+    style={{
+        background: "linear-gradient(180deg,rgb(255, 255, 255) 50%, #887cd0 100%)"
+      }}
+    >
       <div className="max-w-7xl mx-auto h-full">
         <div className="flex h-full">
           {/* Sidebar - Conversations List */}
