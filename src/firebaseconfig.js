@@ -18,4 +18,9 @@ microsoftProvider.setCustomParameters({
   tenant: 'common',
 });
 
+// Request additional scopes to access profile information
+microsoftProvider.addScope('User.Read');
+microsoftProvider.addScope('profile');
+microsoftProvider.addScope('email');
+
 export default app;

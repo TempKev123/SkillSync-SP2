@@ -2,10 +2,13 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import HomePage from "../pages/homepage";
 import LoginPage from "../pages/loginPage";
 import ProfilePage from "../pages/profilePage";
+import ProfileEditPage from "../pages/profileEditPage";
+import MessagePage from "../pages/messagePage";
 import NavBar from "../components/navibar";
 import ErrorPage from "../pages/errorpage";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { useAuth } from "../context/AuthContext";
+
 
 // Wrapper component to redirect authenticated users from login page
 function LoginRoute() {
@@ -45,13 +48,35 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     )
   },
-  { 
+  {
     path: "/profile",
     element: (
       <ProtectedRoute>
         <>
-          <NavBar /> 
+          <NavBar />
           <ProfilePage />
+        </>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: "/profile/edit",
+    element: (
+      <ProtectedRoute>
+        <>
+          <NavBar />
+          <ProfileEditPage />
+        </>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: "/message",
+    element: (
+      <ProtectedRoute>
+        <>
+          <NavBar />
+          <MessagePage />
         </>
       </ProtectedRoute>
     )
