@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import HomePage from "../pages/homepage";
+import ProjectPage from "../pages/projectpage";
 import LoginPage from "../pages/loginPage";
 import ProfilePage from "../pages/profilePage";
 import ProfileEditPage from "../pages/profileEditPage";
@@ -44,6 +45,17 @@ export const router = createBrowserRouter([
         <>
           <NavBar />
           <HomePage />
+        </>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: "/project",
+    element: (
+      <ProtectedRoute>
+        <>
+          <NavBar />
+          <ProjectPage />
         </>
       </ProtectedRoute>
     )
