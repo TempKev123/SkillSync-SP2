@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import ProjectCard from './projectcard';
 
 export default function HomeComponents() {
   const [activeTab, setActiveTab] = useState('projects');
   const [searchQuery, setSearchQuery] = useState('');
   const [showPostModal, setShowPostModal] = useState(false);
+  const [showCard, setShowCard] = useState(false);
 
   // Mock project data
   const projects = [
@@ -172,12 +174,15 @@ export default function HomeComponents() {
                       ))}
                     </div>
                   </div>
-
+                      
                   <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                     <span className="text-sm text-gray-600">
                       Posted by <span className="font-bold">{project.author}</span>
                     </span>
-                    <button className="bg-[#887cd0] hover:bg-[#a396e0] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    {/*Button here*/}
+                    <button 
+                    onClick={() => setShowCard(true)}
+                    className="bg-[#887cd0] hover:bg-[#a396e0] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                       Apply to Join
                     </button>
                   </div>
@@ -237,6 +242,7 @@ export default function HomeComponents() {
               ))}
             </div>
           )}
+          
         </div>
 
         {/* RIGHT SIDE — NEWS PANEL */}
@@ -334,6 +340,17 @@ export default function HomeComponents() {
           </div>
         </div>
       )}
+            {/* Overlay + Card */}
+            {showCard && (
+              <div
+                className="fixed inset-0 bg-black/40 flex items-center justify-center"
+                onClick={() => setShowCard(false)} // click outside
+              >
+                <div onClick={(e) => e.stopPropagation()}>
+                  <ProjectCard />
+                </div>
+              </div>
+            )}
     </div>
   );
 }
