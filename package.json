@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
     "firebase": "^12.6.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -25,6 +27,7 @@
     "@vitejs/plugin-react": "^5.1.0",
     "autoprefixer": "^10.4.22",
     "babel-plugin-react-compiler": "^19.1.0-rc.3",
+    "baseline-browser-mapping": "^2.9.15",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.24",

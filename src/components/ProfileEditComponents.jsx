@@ -9,14 +9,13 @@ const ProfileEditComponents = () => {
 
   // State for editable sections
   const [name, setName] = useState('');
-  const [bio, setBio] = useState('Computer Science • 2025');
-  const [about, setAbout] = useState('A passionate computer science student with strong interest in AI and machine learning. Currently working on research projects focused on natural language processing and collaborative learning systems.');
-
+  const [bio, setBio] = useState('');
+  const [about, setAbout] = useState('');
   const [contactInfo, setContactInfo] = useState({
     email: '',
-    phone: '+1 (555) 123-4567',
-    linkedin: 'linkedin.com/in/alicejohnson',
-    github: 'github.com/alicejohnson'
+    phone: '',
+    linkedin: '',
+    github: ''
   });
 
   // Load user data from Microsoft account when component mounts
