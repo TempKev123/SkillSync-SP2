@@ -3,11 +3,32 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const ProfileEditComponents = () => {
+
+  const [apiProfile, setApiProfile] = useState(null);
+  
+    useEffect(() => {
+      const fetchProfile = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          const response = await fetch(API_URL + user?.displayName);
+          if (!response.ok) throw new Error('Failed to fetch profile');
+          const data = await response.json();
+          setApiProfile(data);
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchProfile();
+    }, []);
+  
   const navigate = useNavigate();
   const { user, profilePhotoURL, photoLoading } = useAuth();
 
   const [name, setName] = useState('');
-  const [bio, setBio] = useState('Computer Science • 2025');
+  const [major, setmajor] = useState('None');
   const [about, setAbout] = useState('A passionate computer science student with strong interest in AI...');
   const [contactInfo, setContactInfo] = useState({
     email: '', phone: '+1 (555) 123-4567', linkedin: 'linkedin.com/in/alice', github: 'github.com/alice'
@@ -92,7 +113,7 @@ const ProfileEditComponents = () => {
                     <div>
                       <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-1 block ml-1">Headline</label>
                       <input 
-                        value={bio} onChange={(e) => setBio(e.target.value)}
+                        value={major} onChange={(e) => setmajor(e.target.value)}
                         className="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-4 focus:ring-[#887cd0]/10 font-medium transition-all"
                       />
                     </div>

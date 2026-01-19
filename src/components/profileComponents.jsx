@@ -1,26 +1,44 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useEffect, useState } from 'react';
+
+const API_URL = 'http://localhost:8080/profile/';
+
+
 
 const ProfileComponents = () => {
+
+  const [apiProfile, setApiProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { user, profilePhotoURL, photoLoading } = useAuth();
+  const { user, profilePhotoURL, photoLoading, uid } = useAuth();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(API_URL + user?.uid);
+        if (!response.ok) throw new Error('Failed to fetch profile');
+        const data = await response.json();
+        setApiProfile(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   const profileData = {
-    name: user?.displayName || 'User',
+    name: apiProfile?.name || user?.displayName || 'User',
     initials: user?.displayName?.split(' ').map(n => n[0]).join('') || 'U',
     photoURL: profilePhotoURL || null,
-    bio: 'Computer Science • Class of 2025',
-    about: 'A passionate computer science student with a strong interest in AI and machine learning. Currently working on research projects focused on natural language processing and collaborative learning systems.',
-    contactInfo: {
-      email: user?.email || '',
-      phone: '+1 (555) 123-4567',
-      linkedin: 'linkedin.com/in/alicejohnson',
-      github: 'github.com/alicejohnson'
-    },
-    skills: [
-      'React', 'JavaScript', 'Python', 'Machine Learning', 'UI/UX Design',
-      'Node.js', 'Tailwind CSS', 'Data Analysis', 'Project Management'
-    ],
+    bio: user?.displayName|| 'No Name Found',
+    about:apiProfile?.aboutme || '',
+    skills: apiProfile?.tags || [],
     portfolio: [
       { id: 1, title: 'AI Academic Assistant', description: 'Intelligent tutoring system using NLP to provide personalized learning support.', tags: ['AI', 'NLP'], status: 'Completed' },
       { id: 2, title: 'Collaborative Research', description: 'Web platform for researchers to share findings in real-time.', tags: ['React', 'Node.js'], status: 'In Progress' }
@@ -37,7 +55,7 @@ const ProfileComponents = () => {
         <div className="relative bg-white/70 backdrop-blur-2xl rounded-[2.5rem] border border-white shadow-2xl p-8 mb-8 overflow-hidden">
           {/* Subtle Background Pattern */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#887cd0]/5 rounded-full -mr-20 -mt-20 blur-3xl" />
-          
+
           <div className="relative flex flex-col md:flex-row items-center md:items-end gap-8">
             {/* Avatar */}
             <div className="relative shrink-0 -mt-4">
@@ -73,7 +91,7 @@ const ProfileComponents = () => {
 
         {/* --- CONTENT GRID --- */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* LEFT: About & Skills */}
           <div className="lg:col-span-2 space-y-8">
             <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-50">
@@ -99,25 +117,24 @@ const ProfileComponents = () => {
               <h3 className="text-xs font-black text-gray-400 px-4 tracking-[0.3em] uppercase">Featured Work</h3>
               {profileData.portfolio.map((project) => (
                 <div key={project.id} className="group bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-xl transition-all border border-gray-50 flex flex-col sm:flex-row gap-6 items-start">
-                   <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center shrink-0">
-                      <span className="text-2xl">📁</span>
-                   </div>
-                   <div className="flex-1">
-                      <div className="flex justify-between items-start mb-2">
-                        <h4 className="text-2xl font-black text-gray-900 group-hover:text-[#887cd0] transition-colors">{project.title}</h4>
-                        <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${
-                          project.status === 'Completed' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600'
+                  <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center shrink-0">
+                    <span className="text-2xl">📁</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start mb-2">
+                      <h4 className="text-2xl font-black text-gray-900 group-hover:text-[#887cd0] transition-colors">{project.title}</h4>
+                      <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${project.status === 'Completed' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600'
                         }`}>
-                          {project.status}
-                        </span>
-                      </div>
-                      <p className="text-gray-500 font-medium mb-4">{project.description}</p>
-                      <div className="flex gap-2">
-                        {project.tags.map(tag => (
-                          <span key={tag} className="text-xs font-bold text-gray-400">#{tag}</span>
-                        ))}
-                      </div>
-                   </div>
+                        {project.status}
+                      </span>
+                    </div>
+                    <p className="text-gray-500 font-medium mb-4">{project.description}</p>
+                    <div className="flex gap-2">
+                      {project.tags.map(tag => (
+                        <span key={tag} className="text-xs font-bold text-gray-400">#{tag}</span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -129,9 +146,9 @@ const ProfileComponents = () => {
               <h3 className="text-xs font-black text-[#887cd0] mb-8 tracking-[0.3em] uppercase text-center">Contact Info</h3>
               <div className="space-y-6">
                 {[
-                  { label: 'Email', value: profileData.contactInfo.email, icon: '✉️' },
-                  { label: 'LinkedIn', value: 'alice.johnson', icon: '🔗' },
-                  { label: 'GitHub', value: 'alice-dev', icon: '💻' }
+                  { label: 'Email', value: apiProfile?.email || user.email, icon: '✉️' },
+                  { label: 'LinkedIn', value: apiProfile?.linkedin, icon: '🔗' },
+                  { label: 'GitHub', value: apiProfile?.github, icon: '💻' }
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors cursor-pointer group">
                     <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
@@ -144,7 +161,7 @@ const ProfileComponents = () => {
                   </div>
                 ))}
               </div>
-              
+
               <button className="w-full mt-8 bg-gray-100 hover:bg-gray-200 text-gray-900 py-4 rounded-2xl font-black transition-all active:scale-95">
                 Download CV
               </button>

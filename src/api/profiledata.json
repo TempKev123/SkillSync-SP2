@@ -1,11 +1,12 @@
 [
   {
-    "id": "kev3",
+    "id": "sDWXaXchITWU795oRHjCDCnFyR62",
+    "name": "Gregor Samsa",
     "major": "Human resources 2023",
     "email": "GregorSamsa@gmail.com",
     "phone": "555-952-0899",
     "aboutme": "Kevin's Testing Dummy",
-    "github": "https://github.com/smiths",
+    "github": "https://github.com/greggysamsa",
     "linkedin": "https://linkedin.com/in/greg2cool",
     "stars": [
       1,
@@ -20,66 +21,9 @@
       "communication",
       "explosions",
       "recruitment",
-      "conflict resolution"
+      "conflict resolution",
+      "golden bought retreval"
     ],
-    "createdAt": "2026-01-19T06:05:01.352Z",
-    "updatedAt": "2026-01-19T06:05:17.544Z"
-  },
-  {
-    "id": "kev2",
-    "major": "Human resources 2023",
-    "email": "GeorgeSmith@gmail.com",
-    "phone": "555-952-0899",
-    "aboutme": "Kevin's Testing Dummy",
-    "github": "https://github.com/you",
-    "linkedin": "https://linkedin.com/in/george",
-    "stars": [
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5
-    ],
-    "tags": [
-      "communication",
-      "teamwork",
-      "recruitment",
-      "conflict resolution"
-    ],
-    "createdAt": "2026-01-18T17:45:35.601Z"
-  },
-  {
-    "id": "kev1",
-    "major": "Software Development - 2125",
-    "email": "kevindityam@gmail.com",
-    "phone": "066-052-0899",
-    "aboutme": "Full-stack developer and one of the developers of this site. :)",
-    "github": "https://github.com/tempkev123",
-    "linkedin": "https://linkedin.com/in/kevin",
-    "stars": [
-      5,
-      4,
-      5,
-      5,
-      4,
-      5,
-      5,
-      4,
-      5
-    ],
-    "tags": [
-      "JavaScript",
-      "React",
-      "Node.js",
-      "CSS",
-      "HTML",
-      "Full-Stack Development"
-    ],
-    "createdAt": "2026-01-17T18:20:01.995Z",
-    "updatedAt": "2026-01-17T18:37:14.095Z"
+    "createdAt": "2026-01-19T14:07:57.529Z"
   }
 ]

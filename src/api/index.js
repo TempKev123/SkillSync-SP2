@@ -58,6 +58,10 @@ app.post("/profile/:id", async (req, res) => {
       .status(400)
       .json({ error: "Stars must be an array of numbers from 1 to 5" });
   }
+  if (tags && !Array.isArray(tags)) {
+  return res.status(400).json({ error: "Tags must be an array of strings" });
+}
+
 
   const profiles = await readProfiles();
 
