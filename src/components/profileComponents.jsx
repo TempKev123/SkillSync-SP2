@@ -19,7 +19,8 @@ const ProfileComponents = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(API_URL + user?.uid);
+        const response = await fetch(API_URL + 1);
+        //const response = await fetch(API_URL + user?.uid); replace with uid later after testing
         if (!response.ok) throw new Error('Failed to fetch profile');
         const data = await response.json();
         setApiProfile(data);

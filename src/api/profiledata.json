@@ -1,21 +1,59 @@
 [
   {
     "id": "sDWXaXchITWU795oRHjCDCnFyR62",
+    "name": "Sujit Dityam",
+    "major": "Computer Science 2025",
+    "email": "kevindityam@gmail.com",
+    "phone": "062-555-0899",
+    "aboutme": "Kevin one of the co founders of SkillSync. He is a senior at UC Davis studying Computer Science. He is passionate about building impactful software solutions that enhance user experiences and drive innovation. With a strong foundation in full-stack development, Kevin enjoys tackling complex problems and collaborating with cross-functional teams to deliver high-quality products.",
+    "github": "https://github.com/tempkev123",
+    "linkedin": "https://linkedin.com/in/kevindityam",
+    "stars": [
+      5
+    ],
+    "tags": [
+      "JavaScript",
+      "React",
+      "Node.js",
+      "UI/UX Design"
+    ],
+    "createdAt": "2026-01-19T14:07:57.529Z"
+  },
+  {
+    "id": "1",
     "name": "Gregor Samsa",
     "major": "Human resources 2023",
     "email": "GregorSamsa@gmail.com",
     "phone": "555-952-0899",
-    "aboutme": "Kevin's Testing Dummy",
+    "aboutme": "communiaction Testing Dummy 2 ",
     "github": "https://github.com/greggysamsa",
     "linkedin": "https://linkedin.com/in/greg2cool",
     "stars": [
-      1,
       2,
       3,
-      4,
-      5,
-      5,
-      1
+      5
+    ],
+    "tags": [
+      "communication",
+      "explosions",
+      "recruitment",
+      "conflict resolution",
+      "golden bought retreval"
+    ],
+    "createdAt": "2026-01-19T14:07:57.529Z"
+  },
+  {
+    "id": "2",
+    "name": "alice wonderland",
+    "major": "Human resources 2023",
+    "email": "GregorSamsa@gmail.com",
+    "phone": "555-952-0899",
+    "aboutme": "communiaction Testing Dummy 2 ",
+    "github": "https://github.com/greggysamsa",
+    "linkedin": "https://linkedin.com/in/greg2cool",
+    "stars": [
+     1,
+     1
     ],
     "tags": [
       "communication",
