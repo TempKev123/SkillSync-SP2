@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "firebase": "^12.6.0",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "firebase": "^12.8.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^7.9.5",
