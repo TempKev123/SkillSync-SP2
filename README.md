@@ -1,1 +1,1 @@
-Its simply the etest yayayayayah
+This project is SkillSync a social media adjecent web app which will help the students of ABAC find colaborators for their projects. This project was made for seinor project 2 by: Sujit Dityam no.6511800 to be added to be added
