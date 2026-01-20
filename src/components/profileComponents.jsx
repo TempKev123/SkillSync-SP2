@@ -4,53 +4,39 @@ import { useAuth } from '../context/AuthContext';
 
 const ProfileComponents = () => {
   const navigate = useNavigate();
-  const { user, profilePhotoURL, photoLoading } = useAuth();
+  const { user, profilePhotoURL, photoLoading, profileData: firestoreProfile, profileLoading } = useAuth();
 
-  // Mock data - in a real app, this would come from props or a context/store
+  // Use Firestore data if available, otherwise use defaults
   const profileData = {
-    name: user?.displayName || 'User',
-    initials: user?.displayName?.split(' ').map(n => n[0]).join('') || 'U',
+    name: firestoreProfile?.name || user?.displayName || 'User',
+    initials: (firestoreProfile?.name || user?.displayName || 'U').split(' ').map(n => n[0]).join(''),
     photoURL: profilePhotoURL || null,
-    bio: 'Computer Science • 2025',
-    about: 'A passionate computer science student with strong interest in AI and machine learning. Currently working on research projects focused on natural language processing and collaborative learning systems.',
+    bio: firestoreProfile?.bio || '',
+    about: firestoreProfile?.about || '',
     contactInfo: {
-      email: user?.email || '',
-      phone: '+1 (555) 123-4567',
-      linkedin: 'linkedin.com/in/alicejohnson',
-      github: 'github.com/alicejohnson'
+      email: firestoreProfile?.contactInfo?.email || user?.email || '',
+      phone: firestoreProfile?.contactInfo?.phone || '',
+      linkedin: firestoreProfile?.contactInfo?.linkedin || '',
+      github: firestoreProfile?.contactInfo?.github || ''
     },
-    skills: [
-      'React', 'JavaScript', 'Python', 'Machine Learning', 'UI/UX Design',
-      'Node.js', 'Tailwind CSS', 'Data Analysis', 'Project Management'
-    ],
-    portfolio: [
-      {
-        id: 1,
-        title: 'AI Academic Assistant',
-        description: 'Intelligent tutoring system using NLP to provide personalized learning support',
-        tags: ['AI', 'NLP', 'Education'],
-        status: 'Completed'
-      },
-      {
-        id: 2,
-        title: 'Collaborative Research Platform',
-        description: 'Web platform for researchers to collaborate and share findings in real-time',
-        tags: ['React', 'Node.js', 'Real-time'],
-        status: 'In Progress'
-      },
-      {
-        id: 3,
-        title: 'Student Portfolio Showcase',
-        description: 'Platform for students to showcase projects and connect with employers',
-        tags: ['UI/UX', 'Career', 'Networking'],
-        status: 'Planning'
-      }
-    ]
+    skills: firestoreProfile?.skills || [],
+    portfolio: firestoreProfile?.portfolio || []
   };
 
   const handleEditProfile = () => {
     navigate('/profile/edit');
   };
+
+  if (profileLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-[#887cd0] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading profile...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-4 sm:py-8"

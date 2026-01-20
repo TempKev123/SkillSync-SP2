@@ -5,7 +5,8 @@ import { useAuth } from '../context/AuthContext';
 
 const ProfileEditComponents = () => {
   const navigate = useNavigate();
-  const { user, profilePhotoURL, photoLoading } = useAuth();
+  const { user, profilePhotoURL, photoLoading, profileData, updateProfileData, getDefaultProfileData } = useAuth();
+  const [saving, setSaving] = useState(false);
 
   // State for editable sections
   const [name, setName] = useState('');
@@ -19,23 +20,33 @@ const ProfileEditComponents = () => {
     github: 'github.com/alicejohnson'
   });
 
-  // Load user data from Microsoft account when component mounts
+  // Load user data from Firestore or Microsoft account when component mounts
   useEffect(() => {
-    if (user) {
-      // Set name from Microsoft account
-      if (user.displayName) {
-        setName(user.displayName);
+    if (profileData) {
+      // Load from Firestore if profile exists
+      setName(profileData.name || user?.displayName || '');
+      setBio(profileData.bio || '');
+      setAbout(profileData.about || '');
+      setContactInfo({
+        email: profileData.contactInfo?.email || user?.email || '',
+        phone: profileData.contactInfo?.phone || '',
+        linkedin: profileData.contactInfo?.linkedin || '',
+        github: profileData.contactInfo?.github || '',
+      });
+      setSkills(profileData.skills || []);
+      if (profileData.portfolio && profileData.portfolio.length > 0) {
+        setPortfolio(profileData.portfolio);
       }
-
-      // Set email from Microsoft account
-      if (user.email) {
-        setContactInfo(prev => ({
-          ...prev,
-          email: user.email
-        }));
-      }
+    } else if (user) {
+      // Fallback to Microsoft account data for new users
+      const defaultProfile = getDefaultProfileData();
+      setName(defaultProfile.name);
+      setContactInfo(prev => ({
+        ...prev,
+        email: defaultProfile.contactInfo.email
+      }));
     }
-  }, [user]);
+  }, [user, profileData, getDefaultProfileData]);
 
   // Skills state
   const [skills, setSkills] = useState([
@@ -50,7 +61,7 @@ const ProfileEditComponents = () => {
   ];
 
   // Portfolio state
-  const [portfolio] = useState([
+  const [portfolio, setPortfolio] = useState([
     {
       id: 1,
       title: 'AI Academic Assistant',
@@ -75,10 +86,24 @@ const ProfileEditComponents = () => {
   ]);
 
   // Handler functions
-  const handleSaveProfile = () => {
-    console.log('Profile saved:', { name, bio, about, contactInfo, skills, portfolio });
-    alert('Profile updated successfully!');
-    navigate('/profile');
+  const handleSaveProfile = async () => {
+    setSaving(true);
+    try {
+      await updateProfileData({
+        name,
+        bio,
+        about,
+        contactInfo,
+        skills,
+        portfolio,
+      });
+      navigate('/profile');
+    } catch (error) {
+      console.error('Error saving profile:', error);
+      alert('Failed to save profile. Please try again.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleCancel = () => {
@@ -120,9 +145,10 @@ const ProfileEditComponents = () => {
             </button>
             <button
               onClick={handleSaveProfile}
-              className="flex-1 sm:flex-none bg-[#887cd0] hover:bg-[#a396e0] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-medium transition-colors text-sm sm:text-base shadow-md"
+              disabled={saving}
+              className="flex-1 sm:flex-none bg-[#887cd0] hover:bg-[#a396e0] disabled:bg-gray-400 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-medium transition-colors text-sm sm:text-base shadow-md"
             >
-              Save Changes
+              {saving ? 'Saving...' : 'Save Changes'}
             </button>
           </div>
         </div>
