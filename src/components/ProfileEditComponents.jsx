@@ -3,53 +3,96 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const ProfileEditComponents = () => {
-
+  
+  const API_URL = 'http://localhost:8000/profile/';
   const [apiProfile, setApiProfile] = useState(null);
-  
-    useEffect(() => {
-      const fetchProfile = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-          const response = await fetch(API_URL + user?.displayName);
-          if (!response.ok) throw new Error('Failed to fetch profile');
-          const data = await response.json();
-          setApiProfile(data);
-        } catch (err) {
-          setError(err.message);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchProfile();
-    }, []);
-  
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const navigate = useNavigate();
   const { user, profilePhotoURL, photoLoading } = useAuth();
 
-  const [name, setName] = useState('');
-  const [major, setmajor] = useState('None');
-  const [about, setAbout] = useState('A passionate computer science student with strong interest in AI...');
-  const [contactInfo, setContactInfo] = useState({
-    email: '', phone: '+1 (555) 123-4567', linkedin: 'linkedin.com/in/alice', github: 'github.com/alice'
-  });
+  const [username, setName] = useState('No Name');
+  const [fullname, setFullName] = useState('None');
+  const[major, setMajor] = useState('No Major');
+  const [about, setAbout] = useState('None');
+  const [accountEmail, setAEmail] = useState('None');
+  const [contactEmail, setContactEmail] = useState('None');
+  const [contactPhone, setContactPhone] = useState('None');
+  const [contactLinkedin, setContactLinkedin] = useState('None');
+  const [contactGithub, setContactGithub] = useState('None');
 
-  const [skills, setSkills] = useState(['React', 'JavaScript', 'Python', 'UI/UX Design']);
+  const [skills, setSkills] = useState([]);
   const [newSkill, setNewSkill] = useState('');
 
   const skillRecommendations = ['TypeScript', 'Next.js', 'Figma', 'Tailwind'];
 
   useEffect(() => {
+    const fetchProfile = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(API_URL + 2);
+        if (!response.ok) throw new Error('Failed to fetch profile');
+        const data = await response.json();
+        setApiProfile(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProfile();
     if (user) {
-      if (user.displayName) setName(user.displayName);
-      if (user.email) setContactInfo(prev => ({ ...prev, email: user.email }));
+      if (user.displayName) setFullName(user.displayName);
+      if (user.email) setAEmail(user.email);
     }
   }, [user]);
 
-  const handleSaveProfile = () => {
-    alert('Profile updated successfully!');
-    navigate('/profile');
-  };
+  useEffect(() => {
+  if (!apiProfile) return;
+
+  if (apiProfile.username) setName(apiProfile.username);
+  if (apiProfile.aboutme) setAbout(apiProfile.aboutme);
+  if (apiProfile.email) setContactEmail(apiProfile.email);
+  if (apiProfile.phone) setContactPhone(apiProfile.phone);
+  if (apiProfile.linkedin) setContactLinkedin(apiProfile.linkedin);
+  if (apiProfile.github) setContactGithub(apiProfile.github);
+  if (apiProfile.tags) setSkills(apiProfile.tags);
+}, [apiProfile]);
+
+  const handleSaveProfile = async () => {
+  try {
+    const res = await fetch(API_URL+2, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username,
+        fullname,
+        major,
+        aboutme: about,
+        email: contactEmail,
+        phone: contactPhone,
+        linkedin: contactLinkedin,
+        github: contactGithub,
+        tags: skills,
+      }),
+    });
+
+    if (!res.ok) throw new Error("Update failed");
+
+    const data = await res.json();
+    console.log("Updated:", data);
+
+    alert("Profile updated successfully!");
+    navigate("/profile");
+
+  } catch (err) {
+    console.error(err);
+    alert("Update failed");
+  }
+};
+
 
   const handleAddSkill = () => {
     if (newSkill.trim() && !skills.includes(newSkill.trim())) {
@@ -61,13 +104,12 @@ const ProfileEditComponents = () => {
   const handleRemoveSkill = (skillToRemove) => {
     setSkills(skills.filter(skill => skill !== skillToRemove));
   };
-
   return (
     <div className="min-h-screen pb-32 lg:pb-12"
       style={{ background: "linear-gradient(180deg, #ffffff 60%, #887cd0 100%)" }}
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12">
-        
+
         {/* --- HEADER: Floating on Mobile --- */}
         <div className="flex items-center justify-between mb-10 bg-white/80 backdrop-blur-lg p-4 rounded-3xl lg:bg-transparent lg:p-0 sticky top-4 z-30 shadow-xl lg:shadow-none lg:relative">
           <h1 className="text-2xl font-black text-gray-900 tracking-tighter">Edit Profile</h1>
@@ -82,59 +124,64 @@ const ProfileEditComponents = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* --- LEFT COLUMN: Main Info --- */}
           <div className="lg:col-span-2 space-y-8">
-            
+
             {/* Avatar & Basic Info */}
             <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-gray-50">
-               <div className="flex flex-col sm:flex-row items-center gap-8 mb-8">
-                  <div className="relative group">
-                    {photoLoading ? (
-                      <div className="w-32 h-32 rounded-3xl bg-gray-100 animate-pulse" />
-                    ) : profilePhotoURL ? (
-                      <img src={profilePhotoURL} className="w-32 h-32 rounded-3xl object-cover border-4 border-white shadow-xl" alt="Edit" />
-                    ) : (
-                      <div className="w-32 h-32 rounded-3xl bg-[#887cd0] flex items-center justify-center text-white text-4xl font-black">{name[0]}</div>
-                    )}
-                    <div className="absolute inset-0 bg-black/40 rounded-3xl opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity cursor-pointer">
-                      <span className="text-white text-xs font-bold uppercase tracking-widest">Change</span>
+              <div className="flex flex-col sm:flex-row items-center gap-8 mb-8">
+                <div className="relative group">
+                  {photoLoading ? (
+                    <div className="w-32 h-32 rounded-3xl bg-gray-100 animate-pulse" />
+                  ) : profilePhotoURL ? (
+                    <img src={profilePhotoURL} className="w-32 h-32 rounded-3xl object-cover border-4 border-white shadow-xl" alt="Edit" />
+                  ) : (
+                    <div className="w-32 h-32 rounded-3xl bg-[#887cd0] flex items-center justify-center text-white text-4xl font-black">{fullname.split(' ').map(n => n[0]).join('') || 'U'}</div>
+                  )}
+                  <div className="absolute inset-0 bg-black/40 rounded-3xl opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity cursor-pointer">
+                    <span className="text-white text-xs font-bold uppercase tracking-widest">Change</span>
+                  </div>
+                </div>
+
+                <div className="flex-1 w-full space-y-4">
+                  <div>
+                    <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-1 block ml-1">Username</label>
+                    <input
+                      value={username} onChange={(e) => setName(e.target.value)}
+                      className="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-4 focus:ring-[#887cd0]/10 font-bold transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-1 block ml-1">Full Name</label>
+                    <div className="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 font-medium transition-all">
+                        {fullname}
                     </div>
                   </div>
-
-                  <div className="flex-1 w-full space-y-4">
-                    <div>
-                      <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-1 block ml-1">Full Name</label>
-                      <input 
-                        value={name} onChange={(e) => setName(e.target.value)}
-                        className="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-4 focus:ring-[#887cd0]/10 font-bold transition-all"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-1 block ml-1">Headline</label>
-                      <input 
-                        value={major} onChange={(e) => setmajor(e.target.value)}
-                        className="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-4 focus:ring-[#887cd0]/10 font-medium transition-all"
-                      />
+                  <div>
+                    <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-1 block ml-1">Account e-mail</label>
+                    <div className="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 font-medium transition-all">
+                        {accountEmail}
                     </div>
                   </div>
-               </div>
+                </div>
+              </div>
 
-               <div>
-                 <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-2 block ml-1">About Me</label>
-                 <textarea 
-                    value={about} onChange={(e) => setAbout(e.target.value)} rows="5"
-                    className="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 focus:ring-4 focus:ring-[#887cd0]/10 font-medium transition-all resize-none"
-                 />
-               </div>
+              <div>
+                <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-2 block ml-1">About Me</label>
+                <textarea
+                  value={about} onChange={(e) => setAbout(e.target.value)} rows="5"
+                  className="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 focus:ring-4 focus:ring-[#887cd0]/10 font-medium transition-all resize-none"
+                />
+              </div>
             </div>
 
             {/* Skills & Recommendations */}
             <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-gray-50">
               <h3 className="text-xs font-black text-gray-400 mb-6 tracking-[0.2em] uppercase">Skills & Tech</h3>
-              
+
               <div className="flex gap-2 mb-8">
-                <input 
+                <input
                   value={newSkill} onChange={(e) => setNewSkill(e.target.value)}
                   placeholder="Add skill..."
                   className="flex-1 bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-4 focus:ring-[#887cd0]/10"
@@ -154,14 +201,14 @@ const ProfileEditComponents = () => {
               </div>
 
               <div className="p-6 bg-gray-50 rounded-3xl">
-                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Trending Skills</p>
-                 <div className="flex flex-wrap gap-2">
-                    {skillRecommendations.map(rec => (
-                      <button key={rec} onClick={() => setSkills([...skills, rec])} className="text-xs font-bold text-[#887cd0] hover:bg-white px-3 py-1.5 rounded-lg transition-all">
-                        + {rec}
-                      </button>
-                    ))}
-                 </div>
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Trending Skills</p>
+                <div className="flex flex-wrap gap-2">
+                  {skillRecommendations.map(rec => (
+                    <button key={rec} onClick={() => setSkills([...skills, rec])} className="text-xs font-bold text-[#887cd0] hover:bg-white px-3 py-1.5 rounded-lg transition-all">
+                      + {rec}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -169,25 +216,65 @@ const ProfileEditComponents = () => {
           {/* --- RIGHT COLUMN: Contact --- */}
           <div className="space-y-8">
             <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-gray-50">
-              <h3 className="text-xs font-black text-gray-400 mb-8 tracking-[0.2em] uppercase">Connect Channels</h3>
+              <h3 className="text-xs font-black text-gray-400 mb-8 tracking-[0.2em] uppercase">
+                Connect Channels
+              </h3>
+
               <div className="space-y-6">
-                {['email', 'linkedin', 'github'].map(key => (
-                  <div key={key}>
-                    <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-2 block ml-1">{key}</label>
-                    <input 
-                      value={contactInfo[key]} 
-                      onChange={(e) => setContactInfo({...contactInfo, [key]: e.target.value})}
-                      className="w-full bg-gray-50 border-none rounded-xl px-4 py-2 text-sm focus:ring-4 focus:ring-[#887cd0]/10 font-bold"
-                    />
-                  </div>
-                ))}
+                {/* Email */}
+                <div>
+                  <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-2 block ml-1">
+                    Contact e-mail
+                  </label>
+                  <input
+                    value={contactEmail}
+                    onChange={(e) => setContactEmail(e.target.value)}
+                    className="w-full bg-gray-50 border-none rounded-xl px-4 py-2 text-sm focus:ring-4 focus:ring-[#887cd0]/10 font-bold"
+                  />
+                </div>
+                {/* Phone */}
+                 <div>
+                  <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-2 block ml-1">
+                    Contact Phone Number
+                  </label>
+                  <input
+                    value={contactPhone}
+                    onChange={(e) => setContactPhone(e.target.value)}
+                    className="w-full bg-gray-50 border-none rounded-xl px-4 py-2 text-sm focus:ring-4 focus:ring-[#887cd0]/10 font-bold"
+                  />
+                </div>
+
+                {/* LinkedIn */}
+                <div>
+                  <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-2 block ml-1">
+                    Linkedin
+                  </label>
+                  <input
+                    value={contactLinkedin}
+                    onChange={(e) => setContactLinkedin(e.target.value)}
+                    className="w-full bg-gray-50 border-none rounded-xl px-4 py-2 text-sm focus:ring-4 focus:ring-[#887cd0]/10 font-bold"
+                  />
+                </div>
+
+                {/* GitHub */}
+               <div>
+                  <label className="text-[10px] font-black text-[#887cd0] uppercase tracking-widest mb-2 block ml-1">
+                    GitHub
+                  </label>
+                  <input
+                    value={contactGithub}
+                    onChange={(e) => setContactGithub(e.target.value)}
+                    className="w-full bg-gray-50 border-none rounded-xl px-4 py-2 text-sm focus:ring-4 focus:ring-[#887cd0]/10 font-bold"
+                  />
+                </div>
               </div>
             </div>
           </div>
 
         </div>
+
       </div>
-    </div>
+    </div >
   );
 };
 
