@@ -1,27 +1,35 @@
 [
   {
-    "id": "sDWXaXchITWU795oRHjCDCnFyR62",
-    "name": "Sujit Dityam",
-    "major": "Computer Science 2025",
-    "email": "kevindityam@gmail.com",
-    "phone": "062-555-0899",
-    "aboutme": "Kevin one of the co founders of SkillSync. He is a senior at UC Davis studying Computer Science. He is passionate about building impactful software solutions that enhance user experiences and drive innovation. With a strong foundation in full-stack development, Kevin enjoys tackling complex problems and collaborating with cross-functional teams to deliver high-quality products.",
-    "github": "https://github.com/tempkev123",
-    "linkedin": "https://linkedin.com/in/kevindityam",
+    "id": "3",
+    "username": "4thehlygrail",
+    "fullname": "Authur Pendragon",
+    "major": "Buisness English 35",
+    "email": "BritanKing@gmail.com",
+    "phone": "555-090-4028",
+    "aboutme": "communiaction Testing Dummy 3 ",
+    "github": "https://github.com/4thehlygrail",
+    "linkedin": "https://linkedin.com/in/4thehlygrail",
     "stars": [
+      2,
+      3,
+      4,
+      3,
+      3,
       5
     ],
     "tags": [
-      "JavaScript",
-      "React",
-      "Node.js",
-      "UI/UX Design"
+      "sacred treasures",
+      "recruitment",
+      "conflict resolution",
+      "kingdom ruling"
     ],
-    "createdAt": "2026-01-19T14:07:57.529Z"
+    "createdAt": "2026-01-21T14:29:43.909Z",
+    "updatedAt": "2026-01-21T14:30:01.291Z"
   },
   {
     "id": "1",
-    "name": "Gregor Samsa",
+    "username": "APIGREGGY",
+    "fullname": "Gregor Samsa",
     "major": "Human resources 2023",
     "email": "GregorSamsa@gmail.com",
     "phone": "555-952-0899",
@@ -44,24 +52,26 @@
   },
   {
     "id": "2",
-    "name": "alice wonderland",
-    "major": "Human resources 2023",
-    "email": "GregorSamsa@gmail.com",
-    "phone": "555-952-0899",
-    "aboutme": "communiaction Testing Dummy 2 ",
-    "github": "https://github.com/greggysamsa",
-    "linkedin": "https://linkedin.com/in/greg2cool",
+    "username": "ShinyALicy112",
+    "fullname": "SUJIT DITYAM",
+    "major": "No Major",
+    "email": "ShineALice112@gmail.com",
+    "phone": "555-112-0899",
+    "aboutme": "communication Testing Dummy 2 but shiny.",
+    "github": "https://github.com/sparkyalice",
+    "linkedin": "https://linkedin.com/in/AliceTheGreat",
     "stars": [
-     1,
-     1
+      1,
+      1
     ],
     "tags": [
-      "communication",
+      "transformation sequences",
       "explosions",
-      "recruitment",
-      "conflict resolution",
-      "golden bought retreval"
+      "golden bought retreval",
+      "TypeScript",
+      "sparkles"
     ],
-    "createdAt": "2026-01-19T14:07:57.529Z"
+    "createdAt": "2026-01-19T14:07:57.529Z",
+    "updatedAt": "2026-01-21T15:05:54.721Z"
   }
 ]

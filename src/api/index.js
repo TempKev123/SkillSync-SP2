@@ -4,7 +4,7 @@ import { readFile, writeFile } from "fs/promises";
 import path from "path";
 
 const app = express();
-const PORT = 8080;
+const PORT = 8000;
 const FILE = path.resolve("profiledata.json");
 
 /* =========================
@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
 ========================= */
 app.post("/profile/:id", async (req, res) => {
   const { id } = req.params;
-  const { major, email, phone, aboutme, github, linkedin, stars, tags } = req.body;
+  const { username,fullname,major, email, phone, aboutme, github, linkedin, stars, tags } = req.body;
 
   if (!major && !email && !phone && !aboutme && !github && !linkedin && !stars && !tags) {
     return res.status(400).json({ error: "No valid fields provided" });
@@ -71,6 +71,8 @@ app.post("/profile/:id", async (req, res) => {
 
   const profile = {
     id,
+    username,
+    fullname,
     major,
     email,
     phone,
@@ -107,7 +109,7 @@ app.get("/profile/:id", async (req, res) => {
 ========================= */
 app.put("/profile/:id", async (req, res) => {
   const { id } = req.params;
-  const { major, email, phone, aboutme, github, linkedin, stars, tags } = req.body;
+  const { username,fullname, major, email, phone, aboutme, github, linkedin, stars, tags } = req.body;
 
   // Validate stars
   if (
@@ -129,6 +131,8 @@ app.put("/profile/:id", async (req, res) => {
 
   profiles[index] = {
     ...profiles[index],
+    username: username ?? profiles[index].username,
+    fullname: fullname ?? profiles[index].fullname,
     major: major ?? profiles[index].major,
     email: email ?? profiles[index].email,
     phone: phone ?? profiles[index].phone,

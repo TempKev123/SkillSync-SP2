@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useEffect, useState } from 'react';
 
-const API_URL = 'http://localhost:8080/profile/';
+const API_URL = 'http://localhost:8000/profile/';
 
 
 
@@ -19,7 +19,7 @@ const ProfileComponents = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(API_URL + 1);
+        const response = await fetch(API_URL + 2);
         //const response = await fetch(API_URL + user?.uid); replace with uid later after testing
         if (!response.ok) throw new Error('Failed to fetch profile');
         const data = await response.json();
@@ -34,7 +34,7 @@ const ProfileComponents = () => {
   }, []);
 
   const profileData = {
-    name: apiProfile?.name || user?.displayName || 'User',
+    name: apiProfile?.username || user?.displayName || 'User',
     initials: user?.displayName?.split(' ').map(n => n[0]).join('') || 'U',
     photoURL: profilePhotoURL || null,
     bio: user?.displayName|| 'No Name Found',
@@ -148,6 +148,7 @@ const ProfileComponents = () => {
               <div className="space-y-6">
                 {[
                   { label: 'Email', value: apiProfile?.email || user.email, icon: '✉️' },
+                  { label: 'Phone', value: apiProfile?.phone, icon: '📞' },
                   { label: 'LinkedIn', value: apiProfile?.linkedin, icon: '🔗' },
                   { label: 'GitHub', value: apiProfile?.github, icon: '💻' }
                 ].map((item, i) => (
@@ -162,10 +163,6 @@ const ProfileComponents = () => {
                   </div>
                 ))}
               </div>
-
-              <button className="w-full mt-8 bg-gray-100 hover:bg-gray-200 text-gray-900 py-4 rounded-2xl font-black transition-all active:scale-95">
-                Download CV
-              </button>
             </div>
           </div>
 
